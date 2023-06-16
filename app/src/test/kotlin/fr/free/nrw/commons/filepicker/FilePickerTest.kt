@@ -11,7 +11,7 @@ import androidx.test.core.app.ApplicationProvider
 import com.nhaarman.mockitokotlin2.verify
 import fr.free.nrw.commons.TestCommonsApplication
 import fr.free.nrw.commons.filepicker.Constants.RequestCodes
-import org.junit.Assert.assertEquals
+import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -55,17 +55,46 @@ class FilePickerTest {
         context = ApplicationProvider.getApplicationContext()
     }
 
+    /**
+     * Test open gallery request code
+     * Case 1: When GET_CONTENT picker is enabled in the Settings
+     */
     @Test
-    fun testOpenGalleryRequestCode() {
+    fun testOpenGalleryWithGetContentPicker() {
         `when`(PreferenceManager.getDefaultSharedPreferences(activity)).thenReturn(sharedPref)
         `when`(sharedPref.edit()).thenReturn(sharedPreferencesEditor)
         `when`(sharedPref.edit().putInt("type", 0)).thenReturn(sharedPreferencesEditor)
-        FilePicker.openGallery(activity, 0)
+        `when`(sharedPref.getBoolean("getContentPhotoPickerPref", false)).thenReturn(true)
+        val isGetContentPickerPreferred = sharedPref.getBoolean(
+                                                         "getContentPhotoPickerPref", false)
+        FilePicker.openGallery(activity, 0, isGetContentPickerPreferred)
         verify(activity).startActivityForResult(
             ArgumentMatchers.anyObject(),
             requestCodeCaptor?.capture()?.toInt()!!
         )
         assertEquals(requestCodeCaptor?.value, RequestCodes.PICK_PICTURE_FROM_GALLERY)
+        assertTrue(isGetContentPickerPreferred)
+    }
+
+    /**
+     * Test open gallery request code
+     * Case 2: When GET_CONTENT picker is disabled in the Settings, that is, classic picker is used
+     */
+    @Test
+    fun testOpenGalleryWithClassicPicker() {
+        `when`(PreferenceManager.getDefaultSharedPreferences(activity)).thenReturn(sharedPref)
+        `when`(sharedPref.edit()).thenReturn(sharedPreferencesEditor)
+        `when`(sharedPref.edit().putInt("type", 0)).thenReturn(sharedPreferencesEditor)
+        `when`(sharedPref.getBoolean("getContentPhotoPickerPref", false)).thenReturn(false)
+        val isGetContentPickerPreferred = sharedPref.getBoolean(
+                                                             "getContentPhotoPickerPref", false)
+        FilePicker.openGallery(activity, 0, isGetContentPickerPreferred)
+        verify(activity).startActivityForResult(
+            ArgumentMatchers.anyObject(),
+            requestCodeCaptor?.capture()?.toInt()!!
+        )
+        assertEquals(requestCodeCaptor?.value, RequestCodes.PICK_PICTURE_FROM_GALLERY)
+        assertFalse(isGetContentPickerPreferred)
     }
 
     @Test

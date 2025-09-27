@@ -47,6 +47,24 @@ jobs:
 
       - name: Run Lint
         run: ./gradlew lintBetaDebug --stacktrace
+        continue-on-error: true
+
+      - name: Upload Lint Results
+        if: github.event_name == 'pull_request'
+        uses: actions/upload-artifact@v4
+        with:
+          name: lint-results
+          path: |
+            app/build/reports/lint-results-betaDebug.xml
+            app/build/reports/lint-results-betaDebug.html
+        continue-on-error: true
+
+      - name: Comment Lint Results on PR
+        if: github.event_name == 'pull_request'
+        uses: yutailang0119/action-android-lint@v4
+        with:
+          report-path: app/build/reports/lint-results-betaDebug.xml
+        continue-on-error: true
 
       - name: Upload Test Report to Codecov
         if: github.event_name != 'pull_request'

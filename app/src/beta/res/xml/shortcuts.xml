@@ -4,7 +4,7 @@
 
   <shortcut
     android:enabled="true"
-    android:icon="@mipmap/ic_settings_black"
+    android:icon="@mipmap/ic_setting_black"
     android:shortcutId="Setting"
     android:shortcutLongLabel="@string/title_app_shortcut_setting"
     android:shortcutShortLabel="@string/title_app_shortcut_setting"

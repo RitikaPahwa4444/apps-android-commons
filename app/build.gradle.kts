@@ -1,7 +1,7 @@
 import java.util.Properties
 import java.io.ByteArrayOutputStream
 
-plugin {
+plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.kotlin.kapt)

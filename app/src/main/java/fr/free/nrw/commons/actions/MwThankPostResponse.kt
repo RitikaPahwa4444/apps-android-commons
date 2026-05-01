@@ -8,7 +8,7 @@ import fr.free.nrw.commons.wikidata.mwapi.MwResponse
  * The Commons Android app lets you thank other contributors who have uploaded a great picture.
  * See https://www.mediawiki.org/wiki/Extension:Thanks
  */
-class MWThankPostResponse : MWResponse() {
+class MWThankPostResponses : MWResponses() {
     var result: Result? = null
 
     inner class Result {

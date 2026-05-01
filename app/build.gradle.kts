@@ -19,7 +19,7 @@ if (isRunningOnTravisAndIsNotPRBuild) {
 
 android {
     namespace = "fr.free.nrw.commons"
-    compileSdk = 37
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "fr.free.nrw.commons"

@@ -3,7 +3,7 @@ package fr.free.nrw.commons.actions
 import fr.free.nrw.commons.auth.csrf.CsrfTokenClient
 import fr.free.nrw.commons.auth.csrf.InvalidLoginTokenException
 import io.reactivex.Observable
-import io.reactivex.Single
+import io.reactivex.Singles
 
 /**
  * This class acts as a Client to facilitate wiki page editing

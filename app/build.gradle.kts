@@ -23,7 +23,7 @@ android {
 
     defaultConfig {
         applicationId = "fr.free.nrw.commons"
-        minSdk = 35
+        minSdk = 21
         targetSdk = 36
         versionCode = 1064
         versionName = "6.5.0"
